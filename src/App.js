@@ -5,6 +5,7 @@ import SignIn from "./components/SignIn";
 import Users from "./components/Users";
 import MakeUser from "./components/MakeUser";
 import CurrentUser from "./components/CurrentUser";
+import EditUser from "./components/EditUser";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/users" component={Users} />
         <Route path="/makeuser" component={MakeUser} />
         <Route path="/currentUser/:userId" component={CurrentUser} />
+        <Route path="/editUser/:userId" component={EditUser} />
       </Switch>
     </Router>
   );

@@ -49,10 +49,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const [userLogin, setUserLogin] = useState("new user");
+  const [userLogin, setUserLogin] = useState("");
   const [inputPass, setInputPass] = useState("");
 
   const users = useSelector((state) => state.users);
+  const currentUser = users.find((user) => user.login === userLogin);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -61,17 +62,18 @@ export default function SignIn() {
   const handleLogin = (event, newInputValue) => setUserLogin(newInputValue);
   const handlePass = (e) => setInputPass(e.target.value);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     if (userLogin === "new user") {
       history.push("makeuser");
-    } else {
-      const currentUser = users.filter((user) => user.login === userLogin);
-      history.push(`/currentUser/${currentUser[0].id}`);
     }
 
-    setUserLogin("");
-    setInputPass("");
+    if (userLogin !== "new user" && currentUser.password === inputPass) {
+      history.push(`/currentUser/${currentUser.id}`);
+      setUserLogin("");
+      setInputPass("");
+    }
   };
 
   return (
@@ -114,6 +116,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
             onClick={handleSubmit}
+            disabled={!userLogin}
           >
             Войти
           </Button>
