@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Users from "./components/Users";
@@ -9,9 +10,12 @@ import NavBar from "./components/NavBar";
 import TextPage from "./components/TextPage";
 
 export default function Dashboard() {
+  const isViewNavBar = useSelector((state) => state.view_nav.isView);
+
   return (
     <Router>
-      <NavBar />
+      {isViewNavBar && <NavBar />}
+
       <Switch>
         <Route path="/dashboard/users" component={Users} />
         <Route path="/dashboard/makeuser" component={MakeUser} />

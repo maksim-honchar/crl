@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./usersSlice";
-import currentUserReducer from "./currentUserSlice";
 import navReducer from "./navSlice";
+import viewNavReducer from "./viewNavSlice";
 
 export default configureStore({
   reducer: {
     users: usersReducer,
-    // currentUser: currentUserReducer,
     nav: navReducer,
+    view_nav: viewNavReducer,
   },
 });

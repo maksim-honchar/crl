@@ -3,31 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { userEdit } from "./../redux/usersSlice";
+import { setViewNav } from "../redux/viewNavSlice";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="#">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    width: 150,
   },
 }));
 
@@ -111,7 +99,7 @@ export default function EditUser({ match }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Редактировать пользователя
@@ -222,35 +210,31 @@ export default function EditUser({ match }) {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Внести изменения
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={backToUser}
-          >
-            Отмена
-          </Button>
-          <Grid container justify="flex-end">
+          <Grid container direction="row" justify="space-around">
             <Grid item>
-              <Link href="/" variant="body2">
-                Уже есть аккаунт? Войти в систему
-              </Link>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Изменить
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={backToUser}
+              >
+                Отмена
+              </Button>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }

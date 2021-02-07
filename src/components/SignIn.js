@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userAdd } from "../redux/usersSlice";
-import { setNav } from "../redux/navSlice";
 import { useHistory } from "react-router-dom";
+
+import { setNav } from "../redux/navSlice";
+import { setViewNav } from "../redux/viewNavSlice";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -38,10 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -73,6 +74,7 @@ export default function SignIn() {
 
     if (userLogin !== "создать пользователя" && inputPass === "admin") {
       history.push(`/dashboard/currentUser/${currentUser.id}`);
+      dispatch(setViewNav(false));
       setUserLogin("");
       setInputPass("");
     }

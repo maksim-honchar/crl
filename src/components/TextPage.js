@@ -12,9 +12,6 @@ const useStyles = makeStyles({
   bottomField: {
     margin: "15px auto",
   },
-  btn: {
-    //
-  },
 });
 
 export default function TextPage() {
@@ -58,13 +55,7 @@ export default function TextPage() {
           value={fieldBottom}
           onChange={changeFieldBottom}
         />
-        <Button
-          fullWidth
-          className={classes.btn}
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
+        <Button fullWidth variant="contained" color="primary" type="submit">
           Отправить
         </Button>
       </form>

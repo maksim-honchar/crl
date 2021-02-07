@@ -26,8 +26,6 @@ export default function NavBar() {
     setValue(newValue);
   };
 
-  const currentUserId = useSelector((state) => state.currentUser);
-
   const toMakeUser = () => {
     history.push(`/dashboard/makeuser/`);
     dispatch(setNav(1));
