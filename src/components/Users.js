@@ -16,13 +16,16 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-  links: {
-    // cursor: "pointer",
+  button: {
+    margin: "10px 15px",
   },
 });
 
@@ -46,43 +49,64 @@ export default function Users() {
     dispatch(setViewNav(false));
   };
 
+  const clearStorage = () => {
+    sessionStorage.clear();
+    window.location.reload(false);
+  };
+
   const tableUsers = (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="users table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Пользователь</TableCell>
-            <TableCell align="right">Должность</TableCell>
-            <TableCell align="right">Телефон</TableCell>
-            <TableCell align="right">Логин</TableCell>
-            <TableCell align="right">Информация</TableCell>
-            <TableCell align="right">Редактировать</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredUsers.map((user) => (
-            <TableRow className={classes.links} key={user.id}>
-              <TableCell component="th" scope="row">
-                {user.lastName} {user.firstName} {user.patronymic}
-              </TableCell>
-              <TableCell align="right">{user.position}</TableCell>
-              <TableCell align="right">{user.phone}</TableCell>
-              <TableCell align="right">{user.login}</TableCell>
-              <TableCell align="right">
-                <IconButton onClick={() => toUser(user.id)}>
-                  <AccountBoxIcon />
-                </IconButton>
-              </TableCell>
-              <TableCell align="right">
-                <IconButton onClick={() => handleEdit(user.id)}>
-                  <EditIcon />
-                </IconButton>
-              </TableCell>
+    <>
+      <Grid container direction="column" alignItems="flex-end" justify="center">
+        <Grid item>
+          <Button
+            variant="outlined"
+            color="secondary"
+            className={classes.button}
+            startIcon={<DeleteIcon />}
+            onClick={clearStorage}
+          >
+            очистить хранилище
+          </Button>
+        </Grid>
+      </Grid>
+
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="users table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Пользователь</TableCell>
+              <TableCell align="right">Должность</TableCell>
+              <TableCell align="right">Телефон</TableCell>
+              <TableCell align="right">Логин</TableCell>
+              <TableCell align="right">Информация</TableCell>
+              <TableCell align="right">Редактировать</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {filteredUsers.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell component="th" scope="row">
+                  {user.lastName} {user.firstName} {user.patronymic}
+                </TableCell>
+                <TableCell align="right">{user.position}</TableCell>
+                <TableCell align="right">{user.phone}</TableCell>
+                <TableCell align="right">{user.login}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => toUser(user.id)}>
+                    <AccountBoxIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => handleEdit(user.id)}>
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 
   return filteredUsers.length ? tableUsers : <MakeUser />;
