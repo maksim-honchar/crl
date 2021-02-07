@@ -1,18 +1,15 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { loadState } from "../sessionStorage";
 
-const initialState = [
-  { id: "0", login: "создать пользователя" },
-  {
-    id: "1",
-    lastName: "Гончар",
-    firstName: "Максим",
-    patronymic: "Валериевич",
-    position: "front-end dev",
-    phone: "0000000",
-    login: "sp2363",
-    password: "qwerty",
-  },
-];
+const persistedState = loadState();
+
+let initialState;
+
+persistedState
+  ? (initialState = persistedState.users.filter(
+      (user) => user.login !== "создать пользователя"
+    ))
+  : (initialState = [{ id: "0", login: "создать пользователя" }]);
 
 export const usersSlice = createSlice({
   name: "users",
