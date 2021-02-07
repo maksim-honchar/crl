@@ -62,12 +62,11 @@ export default function CurrentUser({ match }) {
 
   function handleEdit(e) {
     e.preventDefault();
-    history.push(`/editUser/${userId}`);
+    history.push(`/dashboard/editUser/${userId}`);
   }
 
   return (
     <>
-      <NavBar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

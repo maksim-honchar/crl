@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { userAdd } from "./../redux/usersSlice";
+import { setNav } from "../redux/navSlice";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -74,16 +75,7 @@ export default function SignUp() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (
-      lastName.length > 2 &&
-      firstName.length > 2 &&
-      patronymic.length > 2 &&
-      position.length > 2 &&
-      phone.length > 2 &&
-      login.length > 2 &&
-      password.length > 2 &&
-      password === confirmPass
-    ) {
+    if (password === confirmPass) {
       dispatch(
         userAdd(
           lastName,
@@ -95,7 +87,9 @@ export default function SignUp() {
           password
         )
       );
-      history.push("/users");
+      dispatch(setNav(0));
+      history.push(`/dashboard/users/`);
+
       setLastname("");
       setFirstName("");
       setPatronymic("");
@@ -117,7 +111,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Создать пользователя
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

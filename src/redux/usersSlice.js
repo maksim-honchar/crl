@@ -1,20 +1,20 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
-  { id: "0", login: "new user" },
+  { id: "0", login: "создать пользователя" },
   {
     id: "1",
-    lastName: "Honchar",
-    firstName: "Maksym",
-    patronymic: "Valerievich",
+    lastName: "Гончар",
+    firstName: "Максим",
+    patronymic: "Валериевич",
     position: "front-end dev",
-    phone: "0931952284",
+    phone: "0000000",
     login: "sp2363",
     password: "qwerty",
   },
 ];
 
-export const slice = createSlice({
+export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
@@ -70,6 +70,6 @@ export const slice = createSlice({
   },
 });
 
-export const { userAdd, userEdit } = slice.actions;
+export const { userAdd, userEdit } = usersSlice.actions;
 
-export default slice.reducer;
+export default usersSlice.reducer;

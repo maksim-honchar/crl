@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setNav } from "../redux/navSlice";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -10,13 +14,43 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CenteredTabs() {
+export default function NavBar() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const nav = useSelector((state) => state.nav.tab);
+
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const currentUserId = useSelector((state) => state.currentUser);
+
+  const toMakeUser = () => {
+    history.push(`/dashboard/makeuser/`);
+    dispatch(setNav(1));
+  };
+
+  const toAll = () => {
+    history.push("/dashboard/users");
+    dispatch(setNav(0));
+  };
+
+  const toTextPage = () => {
+    history.push("/dashboard/textPage");
+    dispatch(setNav(2));
+  };
+
+  const toExit = () => {
+    history.push("/");
+    window.location.reload(false);
+  };
+
+  useEffect(() => {
+    setValue(nav);
+  }, [nav]);
 
   return (
     <Paper className={classes.root}>
@@ -27,9 +61,10 @@ export default function CenteredTabs() {
         textColor="primary"
         centered
       >
-        <Tab label="Текущий" />
-        <Tab label="Все" />
-        <Tab label="Сообщение" />
+        <Tab label="Главная" onClick={toAll} />
+        <Tab label="Создать" onClick={toMakeUser} />
+        <Tab label="Текст" onClick={toTextPage} />
+        <Tab label="Выйти" onClick={toExit} />
       </Tabs>
     </Paper>
   );

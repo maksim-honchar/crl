@@ -91,7 +91,7 @@ export default function EditUser({ match }) {
           password,
         })
       );
-      history.push(`/currentUser/${currentUser.id}`);
+      history.push(`/dashboard/currentUser/${currentUser.id}`);
       setLastname("");
       setFirstName("");
       setPatronymic("");
@@ -103,7 +103,8 @@ export default function EditUser({ match }) {
     }
   }
 
-  const backToUser = () => history.push(`/currentUser/${currentUser.id}`);
+  const backToUser = () =>
+    history.push(`/dashboard/currentUser/${currentUser.id}`);
 
   return (
     <Container component="main" maxWidth="xs">
